@@ -1,4 +1,4 @@
-# State machine example
+# State machine example [![Build Status](https://travis-ci.org/rdlopes/state-machine-example.svg?branch=master)](https://travis-ci.org/rdlopes/state-machine-example)
 
 This implementation is an example of using enum-based state machines to parse a file with a formatted content.
 
