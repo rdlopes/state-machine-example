@@ -1,0 +1,7 @@
+logging:
+  level:
+    root: warn
+    com.rdlopes: debug
+
+parser:
+  input: classpath:lawn-configuration.txt
