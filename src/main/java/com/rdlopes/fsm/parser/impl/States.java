@@ -177,15 +177,6 @@ enum States implements State {
         }
     };
 
-    public static State getInitialState() {
-        return READING_FILE;
-    }
-
-    public static State getFinalState() {
-        return END;
-    }
-
-
     boolean isReadable(File file) {
         return file != null &&
                file.exists() &&

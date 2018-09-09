@@ -45,7 +45,7 @@ public class ConfigurationFileParserImpl implements ConfigurationFileParser, Con
     private Mower.MowerBuilder mowerBuilder = null;
 
     public ConfigurationFileParserImpl(FileParserProperties properties) {
-        this.state = States.getInitialState();
+        this.state = States.READING_FILE;
         this.inputResource = properties.getInputResource();
         this.inputCharset = properties.getInputCharset();
     }
@@ -74,7 +74,7 @@ public class ConfigurationFileParserImpl implements ConfigurationFileParser, Con
     }
 
     private boolean isInTerminalState() {
-        return getState().equals(States.getFinalState());
+        return getState().equals(States.END);
     }
 
     @Override
