@@ -52,9 +52,9 @@ public class ConfigurationFileParserImpl implements ConfigurationFileParser, Con
 
     @Override
     public void parse() throws ParsingException {
-        while (getState().canProcess(this)) {
+        while (state.canProcess(this)) {
             try {
-                this.state = getState().process(this);
+                this.state = state.process(this);
 
             } catch (StateProcessingException e) {
                 throw new ParsingException(this, e);
