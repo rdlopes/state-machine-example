@@ -37,7 +37,7 @@ enum States implements State {
         public State process(Context context) throws StateProcessingException {
             try {
                 Files.readAllLines(configurationFile.toPath(), context.getInputCharset())
-                     .forEach(s -> context.addContentLine(s));
+                     .forEach(context::addContentLine);
                 return READING_LAWN_DIMENSIONS;
 
             } catch (IOException e) {
