@@ -1,7 +1,7 @@
 package com.rdlopes.fsm.parser.fsm;
 
-public interface State {
-    boolean canProcess(Context context);
+import java.util.function.Predicate;
 
+public interface State extends Predicate<Context> {
     State process(Context context) throws StateProcessingException;
 }

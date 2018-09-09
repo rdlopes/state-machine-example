@@ -22,7 +22,7 @@ enum States implements State {
         private File configurationFile = null;
 
         @Override
-        public boolean canProcess(Context context) {
+        public boolean test(Context context) {
             try {
                 this.configurationFile = context.getInputResource().getFile();
                 return isReadable(configurationFile);
@@ -47,7 +47,7 @@ enum States implements State {
     },
     READING_LAWN_DIMENSIONS {
         @Override
-        public boolean canProcess(Context context) {
+        public boolean test(Context context) {
             return context.hasMoreLines();
         }
 
@@ -85,7 +85,7 @@ enum States implements State {
     },
     READING_MOWER_COORDINATES {
         @Override
-        public boolean canProcess(Context context) {
+        public boolean test(Context context) {
             return context.hasMoreLines();
         }
 
@@ -132,7 +132,7 @@ enum States implements State {
     },
     READING_MOWER_INSTRUCTIONS {
         @Override
-        public boolean canProcess(Context context) {
+        public boolean test(Context context) {
             return context.hasMoreLines();
         }
 
@@ -152,6 +152,7 @@ enum States implements State {
                     List<Mower.Instruction> instructions = Arrays.stream(instructionCodes.split("(?!^)"))
                                                                  .map(Mower.Instruction::valueOf)
                                                                  .collect(toList());
+
                     context.setMowerInstructions(instructions);
                     return context.hasMoreLines() ? READING_MOWER_COORDINATES : END;
 
@@ -166,7 +167,7 @@ enum States implements State {
     },
     END {
         @Override
-        public boolean canProcess(Context context) {
+        public boolean test(Context context) {
             return false;
         }
 
@@ -176,7 +177,7 @@ enum States implements State {
         }
     };
 
-    public static final String FAILED_SCANNING_LINE_MESSAGE = "Failed scanning line {0}";
+    private static final String FAILED_SCANNING_LINE_MESSAGE = "Failed scanning line {0}";
 
     boolean isReadable(File file) {
         return file != null &&
