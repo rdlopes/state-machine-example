@@ -79,7 +79,7 @@ enum States implements State {
                 }
 
             } catch (Exception e) {
-                throw new StateProcessingException(format("Failed scanning line {0}", contentLine), e);
+                throw new StateProcessingException(format(FAILED_SCANNING_LINE_MESSAGE, contentLine), e);
             }
         }
     },
@@ -126,7 +126,7 @@ enum States implements State {
                 }
 
             } catch (Exception e) {
-                throw new StateProcessingException(format("Failed scanning line {0}", contentLine), e);
+                throw new StateProcessingException(format(FAILED_SCANNING_LINE_MESSAGE, contentLine), e);
             }
         }
     },
@@ -145,23 +145,22 @@ enum States implements State {
                     instructionCodes = scanner.next();
 
                 } else {
-                    throw new StateProcessingException("Could not read instruction value");
+                    throw new StateProcessingException("Could not read instructions value");
                 }
 
                 if (instructionCodes != null) {
                     List<Mower.Instruction> instructions = Arrays.stream(instructionCodes.split("(?!^)"))
                                                                  .map(Mower.Instruction::valueOf)
                                                                  .collect(toList());
-
                     context.setMowerInstructions(instructions);
                     return context.hasMoreLines() ? READING_MOWER_COORDINATES : END;
 
                 } else {
-                    throw new StateProcessingException(format("Cannot accept values instructionCodes:{0}", instructionCodes));
+                    throw new StateProcessingException("Cannot accept null instructions");
                 }
 
             } catch (Exception e) {
-                throw new StateProcessingException(format("Failed scanning line {0}", contentLine), e);
+                throw new StateProcessingException(format(FAILED_SCANNING_LINE_MESSAGE, contentLine), e);
             }
         }
     },
@@ -176,6 +175,8 @@ enum States implements State {
             return this;
         }
     };
+
+    public static final String FAILED_SCANNING_LINE_MESSAGE = "Failed scanning line {0}";
 
     boolean isReadable(File file) {
         return file != null &&
