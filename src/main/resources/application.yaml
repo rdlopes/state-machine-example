@@ -4,4 +4,5 @@ logging:
     com.rdlopes: debug
 
 parser:
-  input: classpath:lawn-configuration.txt
+  input-resource: classpath:lawn-configuration.txt
+  input-charset: UTF-8

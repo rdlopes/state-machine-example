@@ -19,6 +19,4 @@ public class Mower {
     public enum Orientation {N, E, W, S}
 
     public enum Instruction {L, R, F}
-
-
 }
